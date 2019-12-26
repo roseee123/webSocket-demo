@@ -20,7 +20,13 @@ wss.on('connection', ws => {
 
     //對 message 設定監聽，接收從 Client 發送的訊息
     ws.on('message', data => {
-        ws.send(data);
+        //取得所有連接中的 client
+        let clients = wss.clients;
+
+        //做迴圈，發送訊息至每個 client
+        clients.forEach(client => {
+            client.send(data);
+        });
     });
 
     //當 WebSocket 的連線關閉時執行
