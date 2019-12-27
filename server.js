@@ -16,7 +16,7 @@ wss.on('connection', ws => {
     //固定送最新時間給 Client
     const sendNowTime = setInterval(() => {
         ws.send(String(new Date()))
-    },1000);
+    },5000);
 
     //對 message 設定監聽，接收從 Client 發送的訊息
     ws.on('message', data => {
@@ -27,6 +27,7 @@ wss.on('connection', ws => {
         clients.forEach(client => {
             client.send(data);
         });
+        console.log(data);
     });
 
     //當 WebSocket 的連線關閉時執行
